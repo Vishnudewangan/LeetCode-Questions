@@ -9,70 +9,54 @@
  * }
  */
 class Solution {
+       ListNode left;
+       int size;
     public void reorderList(ListNode head) {
         
-        ListNode mid = mid(head);
+        left=head;
         
-        ListNode sh = mid.next;
-        mid.next=null;
+        size= size(head);
+        helper(head, 0);
         
-         sh = reverse(sh);
-        
-        ListNode head1=head;
-        ListNode head2=sh;
-        
-        ListNode dummy = new ListNode(-1);
-        ListNode dt = dummy;
-        
-        boolean flag = true;
-        
-        while(head1!=null || head2!=null)
-        {
-            if(flag==true)
-            {
-                dt.next=head1;
-                head1=head1.next;
-            }
-            else
-            {
-                dt.next=head2;
-                head2 = head2.next;
-            }
-            
-            dt= dt.next;
-            flag=!flag;
-        }
         
         
     }
-    
-    ListNode mid(ListNode head)
+    void helper(ListNode right , int floor)
     {
-        ListNode slow = head;
-        ListNode fast = head;
+       if(right==null) return ;
         
-        while(fast.next!=null && fast.next.next!=null)
+        
+        helper(right.next,floor+1);
+        
+        if(floor > size/2)
         {
-            slow = slow.next;
-            fast = fast.next.next;
-        
+            ListNode temp = left.next;
+            right.next= temp;
+            left.next= right;
+            left =temp;
         }
-        return slow;
+        else if(floor== size/2)
+        {
+            right.next=null;
+        }
+        
     }
     
-    ListNode reverse(ListNode head)
+    int size(ListNode head)
     {
+        if(head==null) return 0;
+        
         ListNode curr= head;
-        ListNode prev= null;
+        int count=0;
         
         while(curr!=null)
         {
-            ListNode currNext= curr.next;
-            curr.next = prev;
-            prev = curr;
-            curr= currNext;
+            curr=curr.next;
+            count++;
         }
-        
-        return prev;
+        return count;
     }
+    
+    
+    
 }
