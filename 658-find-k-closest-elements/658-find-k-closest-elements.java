@@ -1,56 +1,27 @@
 class Solution {
-      static class Pair implements Comparable<Pair>
-      {
-          int gap ;
-          int val;
-          Pair(int gap, int val)
-          {
-              this.gap = gap;
-              this.val = val;
-          }
-          
-          public int compareTo(Pair o)
-          {
-              if(o.gap == this.gap)
-              {
-                  return  o.val-this.val;
-              }
-              else
-              {
-                  return o.gap-this.gap;
-              }
-          }
-      }
-    
     public List<Integer> findClosestElements(int[] arr, int k, int x) {
-      
-        PriorityQueue<Pair> pq =new PriorityQueue<>();
         
-        for(int i=0;i<arr.length;i++)
+        
+        int left = 0 , right = arr.length-1;
+        
+        while(right - left >=k)
         {
-            pq.add(new Pair(Math.abs(arr[i]-x), arr[i]));
-            
-            if(pq.size()>k)
+            if(x-arr[left] <= arr[right]-x)
             {
-                pq.remove();
+                right--;
             }
+            else
+            {
+                left++;
+            }
+            
         }
-        
-        List<Integer> ans =new ArrayList<>();
-        
-        while(pq.size()>0)
+         List<Integer> ans =new ArrayList<>();
+        for(int i=left; i<=right;i++)
         {
-            ans.add(pq.remove().val);
+            ans.add(arr[i]);
         }
-        
-        Collections.sort(ans);
         
         return ans;
-        
-        
-        
-        
-        
     }
-    
 }
