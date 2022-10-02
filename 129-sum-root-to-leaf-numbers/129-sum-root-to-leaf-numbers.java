@@ -17,20 +17,20 @@ class Solution {
     public int sumNumbers(TreeNode root) {
         
         int[] osum= new int[1];
-        helper(root,osum,"");
+        helper(root,osum,0);
         
         return osum[0];
     }
     
-    void helper(TreeNode root,int[] osum,String sum)
+    void helper(TreeNode root,int[] osum,int sum)
     {
         if(root==null) return;
         
-         sum+=root.val;
+         sum= sum*10 + root.val;
         
         if(root.left==null && root.right==null)
         {
-           osum[0]+=Integer.parseInt(sum);
+           osum[0]+=sum;
         }
         
         
