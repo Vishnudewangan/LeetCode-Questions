@@ -22,7 +22,7 @@ class Solution {
                     continue;
                 }
                 
-                 products[i]="";
+                 
             }
             al.add(tempList);
         }
