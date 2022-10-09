@@ -10,66 +10,71 @@
  */
 class Solution {
     public ListNode rotateRight(ListNode head, int k) {
-        if(head==null || head.next==null  ) return head;
-        int size= size(head);
         
-        k=k%size;
+        if(head==null || head.next==null) return head;
+         
+         int size = size(head);
+           k = k %size;
+        if(k==0 || k==size) return head;
+           
         
-        if(k==0) return head;
-        ListNode fullReversedHead = reverse(head);
         
-        ListNode curr = fullReversedHead;
+        // System.out.println(k +" " + size);
         
-        while(k>1 && curr.next!=null)
+        ListNode firstHead = reverse(head);
+        
+        ListNode curr= firstHead;
+        
+        while(k>1)
         {
+            curr = curr.next;
             k--;
-            curr= curr.next;
         }
         
-        ListNode secondK= curr.next;
-        curr.next=null;
+        ListNode secondHead = curr.next;
+         
+        curr.next= null;
         
-        ListNode firstK = fullReversedHead;
+        ListNode firstRev = reverse(firstHead);
+        ListNode secondRev = reverse(secondHead);
         
-        ListNode part1= reverse(firstK);
-        ListNode part2 = reverse(secondK);
+       firstHead.next = secondRev;
         
-        ListNode tempHeadp1= part1;
+        return firstRev;
         
-        while(tempHeadp1.next!=null)
-        {
-            tempHeadp1 = tempHeadp1.next;
-        }
-        
-        tempHeadp1.next = part2;
-        
-        return part1;
         
     }
+    
     ListNode reverse(ListNode head)
     {
-        ListNode prev = null;
+         if(head == null || head.next==null) return head;
         
-        ListNode curr = head;
+         ListNode prev = null;
+         ListNode curr = head;
         
         while(curr!=null)
         {
-            ListNode currKaNext = curr.next;
+            ListNode currNext = curr.next;
             curr.next = prev;
-            prev= curr;
-            curr = currKaNext;
+            prev  = curr;
+            curr = currNext;
         }
+        
         return prev;
     }
     
     int size(ListNode head)
     {
-        int count=0;
+        if(head==null ) return 0;
         
-        while(head!=null)
+        int count =0;
+        
+        ListNode curr= head;
+        
+        while(curr!=null)
         {
+            curr = curr.next;
             count++;
-            head= head.next;
         }
         return count;
     }
