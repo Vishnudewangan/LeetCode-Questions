@@ -37,10 +37,17 @@ class Solution
     {
         //Your code here
         
-        return helper(a,b,0,0);
+        int[][] dp=new int[a][b];
+        
+         for(int[] arr : dp)
+         {
+             Arrays.fill(arr,-1);
+         }
+        
+        return helper(a,b,0,0,dp);
     }
     
-   static  int helper(int m,int n, int i,int j)
+   static  int helper(int m,int n, int i,int j,int[][] dp)
     {
         if(i<0 || i>=m || j<0 || j>=n) return 0;
         
@@ -49,9 +56,11 @@ class Solution
             return 1;
         }
         
-        int f1 = helper(m,n,i+1,j);
-        int f2= helper(m,n,i,j+1);
+        if(dp[i][j]!=-1) return dp[i][j];
         
-        return f1+f2;
+        int f1 = helper(m,n,i+1,j,dp);
+        int f2= helper(m,n,i,j+1,dp);
+        
+        return dp[i][j]=f1+f2;
     }
 }
