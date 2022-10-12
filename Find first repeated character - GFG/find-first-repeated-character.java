@@ -21,18 +21,17 @@ class Solution
 { 
     String firstRepChar(String s) 
     { 
-        HashSet<Character> hs =new HashSet<>();
+       int[] chFreq=new int[26];
         
         for(int i=0;i<s.length();i++)
         {
-            if(hs.contains(s.charAt(i))==true)
-            {
-                return s.charAt(i)+"";
-            }
-            else
-            {
-                hs.add(s.charAt(i));
-            }
+           char ch =s.charAt(i);
+           
+           if(chFreq[ch-'a']>0)
+           {
+               return ch+"";
+           }
+          chFreq[ch-'a']++;
         }
         
         return "-1";
