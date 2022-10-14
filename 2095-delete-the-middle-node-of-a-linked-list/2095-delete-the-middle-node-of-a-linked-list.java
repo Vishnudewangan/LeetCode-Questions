@@ -9,6 +9,7 @@
  * }
  */
 class Solution {
+    ListNode midPrev= null;
     public ListNode deleteMiddle(ListNode head) {
         if(head.next==null) return null;
         
@@ -17,15 +18,16 @@ class Solution {
         
         ListNode curr=head;
         
-        while(curr.next!=mid)
-        {
-            curr =curr.next;
-        }
+//         while(curr.next!=mid)
+//         {
+//             curr =curr.next;
+//         }
+        
         
         
     
         
-        curr.next=midnext;
+        midPrev.next=midnext;
         
         return head;
     }
@@ -36,7 +38,7 @@ class Solution {
         ListNode fast = head;
         
         while(fast!=null && fast.next!=null)
-        {
+        {    midPrev=slow;
             slow= slow.next;
             fast = fast.next.next;
         }
