@@ -95,10 +95,9 @@ class Solution
             }
             vis[rem.v]=1;
             
-            if(rem.av!=-1)
-            {
+           
                 ans+=rem.wt;
-            }
+            
             
             for(ArrayList<Integer> list: adj.get(rem.v))
             {
