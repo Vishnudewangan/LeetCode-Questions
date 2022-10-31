@@ -9,37 +9,37 @@
  * }
  */
 class Solution {
-    
     public ListNode deleteMiddle(ListNode head) {
+        
         if(head.next==null) return null;
+         
+        ListNode mid = mid(head);
         
-        ListNode[] midAndmidPrev = mid(head);
-        ListNode mid = midAndmidPrev[0];
-        ListNode midPrev = midAndmidPrev[1];
-        ListNode midnext = mid.next;
+        ListNode curr=head;
         
-//         ListNode curr=head;
         
-// //         while(curr.next!=mid)
-// //         {
-// //             curr =curr.next;
-// //         }
+        while(curr.next!=mid)
+        {
+           curr=curr.next;
+        }
         
-        midPrev.next=midnext;
+        curr.next = curr.next.next;
         
         return head;
     }
     
-    ListNode[] mid(ListNode head)
-    {   ListNode midPrev=null;
-        ListNode slow = head;
+    ListNode mid(ListNode head)
+    {
+        ListNode slow =head;
         ListNode fast = head;
         
+        
         while(fast!=null && fast.next!=null)
-        {    midPrev=slow;
-            slow= slow.next;
+        {
+            slow = slow.next;
             fast = fast.next.next;
         }
-        return new ListNode[]{slow,midPrev};
+        
+        return slow;
     }
 }
