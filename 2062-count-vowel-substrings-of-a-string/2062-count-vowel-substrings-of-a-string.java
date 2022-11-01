@@ -1,45 +1,42 @@
 class Solution {
-    public int countVowelSubstrings(String word) {
-        int n= word.length();
-        int ansCnt=0;
-       
-        HashSet<Character> hs = new HashSet<>();
-        hs.add('a');
-        hs.add('e');
-        hs.add('i');
-        hs.add('o');
-        hs.add('u');
-       
-        for(int i=0;i<n;i++)
-        {    HashMap<Character,Integer> map=new HashMap<>();
-             
-            char ch= word.charAt(i);
-            if(hs.contains(ch)==true)
-            {
-                map.put(ch,1);
-            }
-            else
-            {
+   public int countVowelSubstrings(String word) {
+        return atMostKVowels(word, 5) - atMostKVowels(word, 4);
+    }
+
+    boolean isVowel(char c) {
+        return c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u';
+    }
+    
+    int atMostKVowels(String s, int k) {
+        int i = 0;
+        Map<Character, Integer> vowelMap = new HashMap<>();
+        int count = 0;
+        
+        for (int j = 0; j < s.length(); j++) {
+            char c = s.charAt(j);
+            
+            // consonant encountered
+            if (!isVowel(c)) {
+                vowelMap.clear();     // clear the map coz new substring will start
+                i = j + 1;
                 continue;
             }
-            for(int j=i+1;j<n;j++)
-            {
-                if(hs.contains(word.charAt(j))==false)
-                {
-                    break;
-                }
-                else
-                {
-                    map.put(word.charAt(j),map.getOrDefault(word.charAt(j),0)+1);
+            
+            vowelMap.put(c, vowelMap.getOrDefault(c, 0) + 1);
+            
+            while(vowelMap.size() > k) {
+                vowelMap.put(s.charAt(i), vowelMap.get(s.charAt(i)) - 1);
+                if (vowelMap.get(s.charAt(i)) == 0) {
+                    vowelMap.remove(s.charAt(i));
                 }
                 
-                if(map.size()==5)
-                {
-                    ansCnt++;
-                }
+                i++;
             }
+            
+            count += (j - i + 1);
         }
         
-        return ansCnt;
+        return count;
     }
+    
 }
