@@ -19,23 +19,50 @@ class Node {
 
 class Solution {
     public List<Integer> preorder(Node root) {
+         
+        // ***** Recursive Solution****
+//         List<Integer> list=new ArrayList<>();
+        
+        
+//         dfs(root,list);
+//         return list;
+//     }
+    
+//     void dfs(Node root, List<Integer> list)
+//     {
+//         if(root==null) return ;
+        
+//         list.add(root.val);
+        
+//         for(Node child : root.children)
+//         {
+//             dfs(child,list);
+//         }
+        
+        //// Iterative Solution
         
         List<Integer> list=new ArrayList<>();
         
+          if(root==null) return list;
         
-        dfs(root,list);
-        return list;
-    }
-    
-    void dfs(Node root, List<Integer> list)
-    {
-        if(root==null) return ;
+         Stack<Node> st =new Stack<>();
         
-        list.add(root.val);
+        st.push(root);
         
-        for(Node child : root.children)
+        while(st.size()>0)
         {
-            dfs(child,list);
+            root = st.pop();
+            
+            list.add(root.val);
+            
+            for(int i=root.children.size()-1;i>=0;i--)
+            {
+                Node child = root.children.get(i);
+                
+                st.push(child);
+            }
         }
+        
+        return list;
     }
 }
