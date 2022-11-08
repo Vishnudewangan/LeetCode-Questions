@@ -1,27 +1,26 @@
 class Solution {
-    public int[][] floodFill(int[][] image, int sr, int sc, int color) {
+    public int[][] floodFill(int[][] image, int sr, int sc, int newColor) {
+     
+        int clr = image[sr][sc];
         
-        boolean[][] vis = new boolean[image.length][image[0].length];
-        dfs(image,sr,sc,image[sr][sc],color,vis);
+                  dfs(sr,sc,clr,image,newColor);
+     
         
         return image;
     }
     
-    void dfs(int[][] grid,int sr, int sc, int oclr,int clr , boolean[][] vis)
+    void dfs(int i,int j,int clr,int[][] grid,int newColor)
     {
-        if(sr<0 || sc < 0 || sr>=grid.length || sc>=grid[0].length || vis[sr][sc]==true || grid[sr][sc]!=oclr)
+        if(i<0 || j<0 || i>=grid.length || j>=grid[0].length || grid[i][j]!=clr  || grid[i][j]==newColor)
         {
-            return;
+            return ;
         }
-        vis[sr][sc] = true;
-        grid[sr][sc] = clr;
         
-        dfs(grid,sr-1,sc,oclr,clr,vis);
-        dfs(grid,sr,sc+1,oclr,clr,vis);
-        dfs(grid,sr+1,sc,oclr,clr,vis);
-        dfs(grid,sr,sc-1,oclr,clr,vis);
+        grid[i][j] = newColor;
         
-        
+        dfs(i-1,j,clr,grid,newColor);
+        dfs(i,j+1,clr,grid,newColor);
+        dfs(i+1,j,clr,grid,newColor);
+        dfs(i,j-1,clr,grid,newColor);
     }
-    
 }
