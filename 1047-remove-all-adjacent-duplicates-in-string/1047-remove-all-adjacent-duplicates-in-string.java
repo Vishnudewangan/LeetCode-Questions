@@ -1,7 +1,7 @@
 class Solution {
     public String removeDuplicates(String s) {
         
-        Stack<Pair> st =new Stack<>();
+     Stack<Pair> st =new Stack<>();
         
         for(char ch : s.toCharArray())
         {  
@@ -60,6 +60,4 @@ class Solution {
             this.cnt = cnt;
         }
     }
-    
-    
-}
+  }
