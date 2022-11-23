@@ -6,13 +6,13 @@ class Solution {
         HashSet<Character> columns = new HashSet<Character>();
         HashSet<Character> cube = new HashSet<Character>();
         for (int j = 0; j < 9;j++){
-            if(board[i][j]!='.' && !rows.add(board[i][j]))
+            if(board[i][j]!='.' && rows.add(board[i][j])==false)
                 return false;
-            if(board[j][i]!='.' && !columns.add(board[j][i]))
+            if(board[j][i]!='.' && columns.add(board[j][i])==false)
                 return false;
             int RowIndex = 3*(i/3);
             int ColIndex = 3*(i%3);
-            if(board[RowIndex + j/3][ColIndex + j%3]!='.' && !cube.add(board[RowIndex + j/3][ColIndex + j%3]))
+            if(board[RowIndex + j/3][ColIndex + j%3]!='.' && cube.add(board[RowIndex + j/3][ColIndex + j%3])==false)
                 return false;
         }
     }
