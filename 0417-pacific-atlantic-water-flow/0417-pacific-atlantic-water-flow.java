@@ -1,78 +1,57 @@
 class Solution {
     public List<List<Integer>> pacificAtlantic(int[][] heights) {
+        
         List<List<Integer>> ans =new ArrayList<>();
         
-        if(heights.length==0 || heights[0].length==0) return ans;
+        int m = heights.length;
+        int n = heights[0].length;
         
+        boolean[][]  pacific=new  boolean[m][n];
+        boolean[][]  atlantic=new  boolean[m][n];
         
-        boolean[][] pacific=new boolean[heights.length][heights[0].length];
-         boolean[][] atlantic=new boolean[heights.length][heights[0].length];
-        
-        // dfs
-        
-        // top bottom row-> constant
-        
-        for(int c=0;c<heights[0].length;c++)
+        for(int c=0;c<n;c++)
         {
-                  dfs(0,c,heights, pacific,Integer.MIN_VALUE);
-                  dfs(heights.length-1, c,heights,atlantic , Integer.MIN_VALUE);
+            dfs(0,c,Integer.MIN_VALUE,heights,pacific);
+            dfs(m-1,c,Integer.MIN_VALUE,heights,atlantic);
         }
         
-        // left , right  col -> constant
-        
-        for(int r=0;r<heights.length;r++)
+        for(int r=0;r<m;r++)
         {
-            dfs(r,0,heights,pacific,Integer.MIN_VALUE);
-            dfs(r,heights[0].length-1,heights,atlantic,Integer.MIN_VALUE);
-            
+            dfs(r,0,Integer.MIN_VALUE,heights,pacific);
+            dfs(r,n-1,Integer.MIN_VALUE,heights,atlantic);
         }
         
-        // find location
-        
-        for(int i=0;i<heights.length;i++)
+        for(int i=0;i<m;i++)
         {
-            for(int j=0;j<heights[0].length;j++)
+            for(int j=0;j<n;j++)
             {
-                
                 if(pacific[i][j]==true && atlantic[i][j]==true)
-                {  List<Integer> list=new ArrayList<>();
-                   list.add(i);
+                {
+                    List<Integer> list=new ArrayList<>();
+                    list.add(i);
                     list.add(j);
-                  ans.add(list);
+                    ans.add(list);
                 }
-                
-               
             }
         }
+        
         
         return ans;
     }
     
-    void dfs(int row, int col, int[][] heights, boolean[][] matrix, int prev)
+    int[][] dir={{-1,0},{0,1},{1,0},{0,-1}};
+    
+    void dfs(int r, int c ,int prev, int[][] heights,boolean[][] mat)
     {
-        if(row< 0 || row>=heights.length || col<0 || col>=heights[0].length)
-        {
-            return;
-        }
-        else if(matrix[row][col]==true)
-        {
-            return ;
-        }
-        else if(heights[row][col] < prev)
-        {
-            return;
-        }
+        if(r<0 || c< 0 || r>=mat.length || c>=mat[0].length)return;
         
-        matrix[row][col] = true;
+        if(mat[r][c]== true || heights[r][c] < prev) return ;
         
-        // top
-          dfs(row-1,col,heights,matrix,heights[row][col]);
-        // bottom
-          dfs(row+1,col,heights,matrix,heights[row][col]);
-        // left 
-            dfs(row,col-1,heights,matrix,heights[row][col]);
+        mat[r][c] =true;
         
-        // right
-        dfs(row,col+1,heights,matrix,heights[row][col]);
+        for(int d=0;d<4;d++)
+        {
+            dfs(r+dir[d][0], c+dir[d][1], heights[r][c],heights,mat);
+        }
     }
 }
