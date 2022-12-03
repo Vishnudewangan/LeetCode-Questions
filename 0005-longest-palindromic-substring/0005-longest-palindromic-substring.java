@@ -1,55 +1,40 @@
 class Solution {
     public String longestPalindrome(String s) {
-        int n= s.length();
-        boolean[][] dp=new boolean[n][n];
         
-        int strt=-1,end=-1;
-        int len = 0;
+        int[] si =new int[1];
+        int[] len =new int[1];
+        len[0] = 1;
         
-        for(int gap=0;gap<n;gap++)
+        for(int i=0;i<s.length();i++)
         {
-            for(int si=0,ei=gap ; ei<n;ei++,si++)
+            solve(s,i,i,si,len);
+            if(i<s.length()-1)
             {
-                if(gap==0)
-                {
-                    dp[si][ei]=true;
-                }
-                else if(gap==1)
-                {
-                    if(s.charAt(si)==s.charAt(ei))
-                    {
-                        dp[si][ei]=true;
-                    }
-                    else
-                    {
-                        dp[si][ei] = false;
-                    }
-                }
-                else
-                {
-                    if(s.charAt(si)==s.charAt(ei))
-                    {
-                        dp[si][ei] = dp[si+1][ei-1];
-                    }
-                    else
-                    {
-                        dp[si][ei] = false;
-                    }
-                }
-                
-                if(dp[si][ei]==true && gap+1>len)
-                {
-                     strt = si;
-                     end = ei;
-                    len = gap+1;
-                }
-                
-             
+                solve(s,i,i+1,si,len);
             }
-            
-            
         }
         
-        return s.substring(strt,end+1);
+        // System.out.println(si[0]+" " + len[0]);
+        return s.substring(si[0],si[0]+len[0]);
+    }
+    
+    void solve(String str, int i, int j,int[] si, int[] len)
+    {
+        while(i>=0 && j<str.length() && str.charAt(i)==str.charAt(j))
+        {
+            i--;
+            j++;
+        }
+        
+        i++;
+        j--;
+        
+        int tempLen = j-i+1;
+        
+        if(len[0] < tempLen)
+        {
+            si[0]=i;
+            len[0] = tempLen;
+        }
     }
 }
