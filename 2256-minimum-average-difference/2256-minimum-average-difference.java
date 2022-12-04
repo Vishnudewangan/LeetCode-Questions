@@ -5,17 +5,17 @@ class Solution {
         long ans = Long.MAX_VALUE;
         int idx =-1;
         
-        long[] arr=new long[n];
-        arr[0] = nums[0];
-        for(int i=1;i<arr.length;i++)
+         long totalSum=0;
+        for(int i=0;i<nums.length;i++)
         {
-            arr[i] = nums[i]+arr[i-1];
+           totalSum +=nums[i];
         }
-        
-        for(int i=0;i<arr.length;i++)
+         long currPrefixSum=0;
+        for(int i=0;i<nums.length;i++)
         {   
-            long avgith=  arr[i]/(i+1);
-            long avgRest =  n-i-1 > 0 ? (arr[n-1] - arr[i])/(n-i-1) : 0 ;
+            currPrefixSum+=nums[i];
+            long avgith=  currPrefixSum/(i+1);
+            long avgRest =  n-i-1 > 0 ? (totalSum - currPrefixSum)/(n-i-1) : 0 ;
             long avg = Math.abs(avgith - avgRest);
             if(ans > avg)
             {
