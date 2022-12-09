@@ -18,7 +18,7 @@ class Solution {
         {
             for(int j=i+1;j<arr.length-1;j++)
             {
-                
+                if(!indexMap.containsKey(arr[i]+arr[j]))continue;
                 ans= Math.max(ans,solve(arr,i,j));
                 
             }
