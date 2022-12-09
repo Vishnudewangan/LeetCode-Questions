@@ -1,6 +1,6 @@
 class Solution {
     private HashMap<Integer,Integer> indexMap;
-    private HashMap<Integer,Integer> memo;
+    private Integer[][] memo;
     public int lenLongestFibSubseq(int[] arr) {
         
         if(arr.length<=2) return arr.length;
@@ -11,7 +11,8 @@ class Solution {
         {
             indexMap.put(arr[i],i);
         }
-        
+         
+        memo =new Integer[arr.length][arr.length];
         int ans=0;
         for(int i=0;i<arr.length-2;i++)
         {
@@ -30,6 +31,11 @@ class Solution {
     {
         if(indexMap.containsKey(arr[i]+arr[j])==false) return 0;
         
-        return 1+ solve(arr,j,indexMap.get(arr[i]+arr[j]));
+        if(memo[i][j]!=null)
+        {
+            return memo[i][j];
+        }
+        
+        return memo[i][j]=1+ solve(arr,j,indexMap.get(arr[i]+arr[j]));
     }
 }
