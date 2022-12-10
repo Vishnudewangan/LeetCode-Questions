@@ -34,7 +34,7 @@ class Solution {
         maxProd = 0;
         dfs(root);
         long rootProd = checkMax(root);
-        return (int)(maxProd % ((int)Math.pow(10, 9) + 7));
+        return (int)(maxProd % ((int)1e9 + 7));
     }
     
 }    
