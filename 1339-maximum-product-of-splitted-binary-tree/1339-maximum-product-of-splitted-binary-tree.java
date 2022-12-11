@@ -14,27 +14,37 @@
  * }
  */
 class Solution {
-    static long sum;
-    static long maxProd;
-    public static void dfs(TreeNode root) {
-        if(root == null) return;
-        sum += (long)root.val;
+    
+   long sum;
+   long mx;
+    public int maxProduct(TreeNode root) {
+        sum= 0;
+        mx=0;
+        dfs(root);
+        product(root);
+        
+        return (int)(mx % (int)(1e9+7));
+        
+    }
+   void dfs(TreeNode root)
+    {
+        if(root==null) return ;
+        
+        sum+=(long)root.val;
+        
         dfs(root.left);
         dfs(root.right);
     }
-    public static long checkMax(TreeNode root) {
-        if(root == null) return 0;
-        long l = checkMax(root.left);
-        long r = checkMax(root.right);
-        maxProd = Math.max(maxProd, (l + r + root.val) * (sum - l - r - root.val));
-        return l + r + root.val;
-    }
-    public int maxProduct(TreeNode root) {
-        sum = 0;
-        maxProd = 0;
-        dfs(root);
-        long rootProd = checkMax(root);
-        return (int)(maxProd % ((int)1e9 + 7));
-    }
     
-}    
+   long product(TreeNode root)
+    {
+        if(root==null) return 0;
+        
+        long l = product(root.left);
+        long r = product(root.right);
+        
+        mx = Math.max( mx , (l+r+root.val) * (sum- l-r-root.val));
+        
+        return l+r+root.val;
+    }
+}
