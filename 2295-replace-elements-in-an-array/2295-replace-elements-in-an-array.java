@@ -15,17 +15,13 @@ class Solution {
             
              int idx= map.get(valtbc);
             map.remove(valtbc);
-            
+             
              map.put(valtbcw, idx);
+            nums[idx]=valtbcw;
+        
         }
         
-        for(Map.Entry<Integer,Integer> entry : map.entrySet())
-        {
-            int val = entry.getKey();
-            int idx = entry.getValue();
-            
-            nums[idx] = val;
-        }
+       
         return nums;
         
     }
