@@ -1,13 +1,17 @@
 class Solution {
     public int climbStairs(int n) {
-       int[] dp=new int[n+1];
-        dp[0] = 1;
-        for(int i=1;i<dp.length;i++)
-        {
-            if(i==1)dp[i]=dp[i-1];
-            else dp[i] = dp[i-1]+dp[i-2];
-        }
+        int prev = 1;
+        int next = 2;
+        int steps=2;
         
-        return dp[n];
+        while(steps<=n)
+        {
+            int sum = prev+next;
+            prev = next;
+            next = sum;
+            steps++;
+            
+        }
+        return prev;
     }
 }
