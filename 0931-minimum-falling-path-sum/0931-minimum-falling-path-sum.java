@@ -6,11 +6,8 @@ class Solution {
         {
             for(int j=0;j<matrix[0].length;j++)
             {
-                int uval= matrix[i-1][j];// up value;
-                int ldval=j-1>=0 ? matrix[i-1][j-1]: Integer.MAX_VALUE; // left diagonal value;
-                int rdval = j+1<matrix.length ? matrix[i-1][j+1] : Integer.MAX_VALUE;// right diagonal value;
-                
-                matrix[i][j]+= Math.min(uval, Math.min(ldval,rdval));
+               
+                matrix[i][j]+= Math.min(matrix[i-1][j], Math.min(matrix[i-1][Math.max(0,j-1)],matrix[i-1][Math.min(matrix.length-1,j+1)]));
                 
                 
                     
