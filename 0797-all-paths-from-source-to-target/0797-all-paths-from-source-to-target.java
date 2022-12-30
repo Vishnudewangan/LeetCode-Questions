@@ -1,35 +1,31 @@
 class Solution {
     public List<List<Integer>> allPathsSourceTarget(int[][] graph) {
-          
-        List<List<Integer>> ans=new ArrayList<>();
-        List<Integer> list=new ArrayList<>();
         boolean[] vis =new boolean[graph.length];
-        helper(0,graph,vis,ans,list);
+        List<List<Integer>> ans =new ArrayList<>(); 
+        List<Integer> temp =new ArrayList<>();
+        dfs(0,graph.length-1,graph,vis,temp,ans);
         
         return ans;
     }
-    
-    void helper(int src,int[][] graph,boolean[] vis,List<List<Integer>> ans, List<Integer> list)
-    {
+    void dfs(int src, int dest , int[][] graph, boolean[] vis, List<Integer> temp,List<List<Integer>> ans)
+    {  
+       
         vis[src] = true;
-        
-        list.add(src);
-        if(src==graph.length-1)
+        temp.add(src);
+        if(src==dest)
         {
-            ans.add(new ArrayList<>(list));
+            ans.add(new ArrayList<>(temp));
            
         }
-        
-        for(int nbr : graph[src])
-        {
-            if(vis[nbr]==false)
-            {
-                helper(nbr,graph,vis,ans,list);
-            }
-        }
-        
+         for(int nbr : graph[src])
+         {
+             if(vis[nbr]==false)
+             {
+                 
+                 dfs(nbr,dest,graph,vis,temp,ans);
+             }
+         }
+         temp.remove(temp.size()-1);
         vis[src] = false;
-        list.remove(list.size()-1);
     }
-    
 }
