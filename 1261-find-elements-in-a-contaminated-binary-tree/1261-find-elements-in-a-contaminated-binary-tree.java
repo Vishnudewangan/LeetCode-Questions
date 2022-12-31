@@ -14,47 +14,26 @@
  * }
  */
 class FindElements {
-
-    
-    TreeNode Root;
+      
+    HashSet<Integer> seen =new HashSet<>();
     public FindElements(TreeNode root) {
-         
-        if(root!=null)root.val=0;
-         makeTree(root);
-        
-         this.Root= root;
-        
+        dfs(root,0);
     }
-    
-    
     
     public boolean find(int target) {
-        
-        return findHelper(Root,target);
+        return seen.contains(target);
     }
-    private boolean findHelper(TreeNode root,int target)
+    
+    void dfs(TreeNode root, int val)
     {
-        if(root==null) return false;
+        if(root==null) return ;
         
-        if(root.val == target) return true;
+        seen.add(val);
+        root.val = val;
         
-        boolean lf = findHelper(root.left, target);
-        if(lf==true) return true;
+        dfs(root.left, val*2+1);
+        dfs(root.right, val*2+2);
         
-        boolean rf = findHelper(root.right,target);
-        if(rf == true) return true;
-        
-        return false;
-    }
-    private void makeTree(TreeNode root)
-    {
-      if(root==null) return ;
-        
-        if(root.left!=null) root.left.val = 2*root.val+1;
-        if(root.right!=null) root.right.val = 2*root.val+2;
-        
-         makeTree(root.left);
-         makeTree(root.right);
     }
 }
 
