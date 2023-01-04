@@ -1,21 +1,5 @@
 class Solution {
-    static class Pair implements Comparable<Pair>
-    {
-        int val;
-        int freq;
-        
-        Pair(int val, int freq)
-        {
-            this.val = val;
-            this.freq = freq;
-        }
-        
-        public int compareTo(Pair o)
-        {
-            return Integer.compare(this.freq,o.freq);
-        }
-        
-    }
+    
     public int minimumRounds(int[] tasks) {
         
         
