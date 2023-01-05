@@ -16,6 +16,10 @@ class Solution {
                 arrows++;
                 endPnt = points[i][1];
             }
+            else
+            {
+                endPnt = Math.min(points[i][1],endPnt);
+            }
         }
         
         return arrows;
