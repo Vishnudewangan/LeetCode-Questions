@@ -1,40 +1,57 @@
 class Solution {
     public int closedIsland(int[][] grid) {
+        int m=grid.length;
+        int n=grid[0].length;
         
-        int cnt=0;
+        boolean[][] vis=new boolean[m][n];
         
-        for(int i=0;i<grid.length;i++)
+        int count=0;
+        
+        for(int i=0;i<m;i++)
         {
-            for(int j=0;j<grid[0].length;j++)
-            {
-                if(grid[i][j] == 0)
+            for(int j=0;j<n;j++)
+            {    
+                if(i*j==0 || i==m-1 || j==n-1)
                 {
-                    cnt+=dfs(i,j,grid)==true ? 1 : 0;
+                    getConnectedComponents(i,j,grid);
                 }
+                
             }
         }
         
-        return cnt;
+         for(int i=0;i<m;i++)
+        {
+            for(int j=0;j<n;j++)
+            {    
+                if(grid[i][j]==0)
+                {  getConnectedComponents(i,j,grid);
+                    count++;
+                }
+                
+            }
+        }
+        return count;
     }
-    boolean dfs(int i, int j, int[][] grid)
+    
+   void  getConnectedComponents(int i, int j, int[][] grid)
     {
-        if(i<0 || j<0 || i>=grid.length || j>=grid[0].length)
+        if(i<0 || j<0 || i>=grid.length || j>=grid[0].length ||grid[i][j]==1  )
         {
-            return false;
+           return ;
         }
-        
-        if(grid[i][j] == 1)
-        {
-            return true;
-        }
-        
-        grid[i][j] = 1;
-        
-        boolean d1 = dfs(i-1,j,grid);
-        boolean d2 = dfs(i,j+1,grid);
-        boolean d3 = dfs(i+1,j,grid);
-        boolean d4 = dfs(i,j-1,grid);
-        
-        return d1 && d2 && d3 && d4;
+         
+        grid[i][j]=1;
+         
+         //top
+        getConnectedComponents(i-1,j,grid);
+         
+         // right
+          getConnectedComponents(i,j+1,grid);
+         // bottom
+      getConnectedComponents(i+1,j,grid);
+         // left
+         getConnectedComponents(i,j-1,grid);
+       
+      
     }
 }
