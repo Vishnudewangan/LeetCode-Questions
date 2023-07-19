@@ -1,45 +1,44 @@
 class BrowserHistory {
-
-    
-    ArrayList<String> mem;
+     String[] history;
     int curr;
-    int last;
+    int max;
     public BrowserHistory(String homepage) {
-        mem = new ArrayList<>();
-        mem.add(homepage);
+        history =new String[5001];
         curr=0;
-        last=0;
+        max = 0;
+        history[curr] = homepage;
+       
     }
     
     public void visit(String url) {
-        
-        if(mem.size() == curr+1)
-        {
-            mem.add(url);
-            curr++;
-            last=curr;
-        }
-        else
-        {
-            // mem.size()>curr+1;
-            
-            curr++;
-            mem.set(curr,url);
-            last=curr;
-              
-        }
+        curr++;
+        history[curr] = url;
+        max = curr;
+       
     }
     
     public String back(int steps) {
+         if(curr-steps<0)
+         {   curr = 0;
+             return history[0];
+         }
+         else
+           curr=curr-steps;
         
-      curr= Math.max(0,curr-steps);
-        
-        return mem.get(curr);
+        return history[curr];
     }
     
     public String forward(int steps) {
-        curr = Math.min(curr+steps , last);
-        return mem.get(curr);
+         if(curr+steps > max)
+         {
+             curr = max;
+             
+         }
+        else
+        {
+            curr = curr+steps;
+        }
+        return history[curr];
     }
 }
 
