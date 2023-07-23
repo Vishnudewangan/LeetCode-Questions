@@ -14,48 +14,55 @@
  * }
  */
 class Solution {
-     HashMap<Integer,List<TreeNode>> memo=new HashMap<>();
+    
+      HashMap<Integer,List<TreeNode>> map =new HashMap<>();
     public List<TreeNode> allPossibleFBT(int n) {
-        if(!memo.containsKey(n))
-        {
-            List<TreeNode> ans=new ArrayList<>();
-        if(n==1)
-        {
-            TreeNode broot=new TreeNode(0);
-            
-            
-            ans.add(broot);
-            return ans;
-        }
-        else if(n%2==1)
-        {
-       
-            for(int i=0;i<n;i++)
-            {
-               
-                
-                
-                for(TreeNode left : allPossibleFBT(i))
-                {
-                    for(TreeNode right : allPossibleFBT(n-1-i))
-                    {
-                        TreeNode bns =new TreeNode(0);
-                        bns.left=left;
-                        bns.right = right;
-                        ans.add(bns);
-                    }
-                }
-            }
-            
-        }
-            memo.put(n,ans);
         
-       
+       return helper(n);
+        
         
     }
+    
+    List<TreeNode> helper(int n)
+    {
+        if(n%2==0)
+        {
+            return new ArrayList<>();
+        }
         
+        if(n==1)
+        {
+            List<TreeNode> bres =new ArrayList<>();
+            
+            TreeNode broot =new TreeNode(0);
+            
+            bres.add(broot);
+          
+            return bres;
+        }
         
+        if(map.containsKey(n)) return map.get(n);
         
-        return memo.get(n);
-  }
+        List<TreeNode> res =new ArrayList<>();
+        
+        for(int i=1;i<n;i=i+2)
+        {
+            for(TreeNode left : helper(i))
+            {
+                for(TreeNode right : helper(n-i-1))
+                {
+                    TreeNode root  =new TreeNode(0);
+                    
+                    root.left = left;
+                    root.right = right;
+                    
+                    res.add(root);
+                }
+            }
+        }
+        
+        map.put(n,res);
+        
+        return map.get(n);
+    }
 }
