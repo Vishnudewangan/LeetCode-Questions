@@ -2,16 +2,13 @@ class MyStack {
 
     Queue<Integer> que ;
     
-    int top ;
+    
     public MyStack() {
         que = new ArrayDeque<>();
-        top = -1;
+       
     }
     
-    //  2 1 
-    // size = 1
-    
-    
+   
    
     
     public void push(int x) {
