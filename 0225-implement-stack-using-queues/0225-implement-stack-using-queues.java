@@ -1,44 +1,48 @@
 class MyStack {
 
-     Queue<Integer> queMain ;
+    Queue<Integer> que ;
     
     int top ;
-     
     public MyStack() {
-        
-        queMain =new ArrayDeque<>();
-       
+        que = new ArrayDeque<>();
         top = -1;
-        
     }
     
+    //  2 1 
+    // size = 1
+    
+    
+   
+    
     public void push(int x) {
-        queMain.add(x);
-        top = x;
+        
+        
+        int size = que.size();
+        que.add(x);
+        
+        while(size>=1)
+        {
+            que.add(que.remove());
+            size--;
+        }
+        
+        
+        
     }
     
     public int pop() {
-        if(queMain.size()==0) return -1;
-         
-         Queue<Integer> helper =new ArrayDeque<>();
-        while(queMain.size()>1)
-        {
-            
-            if(queMain.size()==2) top = queMain.peek();
-            helper.add(queMain.remove());
-        }
-         int val = queMain.remove();
-        queMain = helper;
-        return val;
+        if(que.size()==0) return -1;
         
+        return que.remove();
     }
     
     public int top() {
-        return top;
+        if(que.size()==0) return -1;
+        return que.peek();
     }
     
     public boolean empty() {
-        return queMain.size()==0;
+        return que.size() ==0 ;
     }
 }
 
