@@ -1,52 +1,25 @@
 class Solution {
     public int uniquePaths(int m, int n) {
-        
-        // recursion + memoization
-        
-        
-//         int[][] dp = new int[m][n];
-//         for(int[] arr : dp){
-//             Arrays.fill(arr,-1);
-//         }
+        int[][] dp=new int[m][n];
          
-//         return helper(0,0,m,n,dp);
-        
-        
-//     }
+        for(int[] temp : dp)
+        {
+            Arrays.fill(temp,-1);
+        }
+        return solve(0,0,m,n, dp);
+    }
     
-//     int helper(int r,int c,int m ,int n,int[][] dp)
-//     {   
-//         if(r>=m || c>=n) return 0;
-//         if(r==m-1 && c==n-1) return 1;
+    int solve(int row,int col,int m,int n,int[][] dp)
+    {   
+        if(row>=m || col>=n) return 0;
+       if(row==m-1 && col==n-1) return 1;
         
-//         if(dp[r][c]!=-1) return dp[r][c];
+        if(dp[row][col]!=-1)return dp[row][col];
         
-//         return dp[r][c] = helper(r+1,c,m,n,dp) + helper(r,c+1,m,n,dp);
+       int d =solve(row+1,col,m,n,dp);
+       int r=solve(row,col+1,m,n,dp);
         
-        /// tabulation
+        return dp[row][col]= d+r;
         
-        
-       int[][] dp=new int[m][n];
-        
-        for(int i=0;i<n;i++)
-        {
-            dp[m-1][i] = 1; 
-        }
-        
-        for(int j=0;j<m;j++)
-        {
-            dp[j][n-1]= 1;
-            
-        }
-        
-        for(int i=m-2;i>=0;i--)
-        {
-            for(int j=n-2;j>=0;j--)
-            {
-                dp[i][j] = dp[i+1][j] + dp[i][j+1];
-            }
-        }
-        
-        return dp[0][0];
     }
 }
