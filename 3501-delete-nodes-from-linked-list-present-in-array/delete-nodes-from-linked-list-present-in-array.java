@@ -16,12 +16,12 @@ class Solution {
         ListNode prev = dummyHead;
         ListNode curr = head;
 
-        HashMap<Integer,Integer> map =new HashMap<>();
-        for(int val : nums) map.put(val,map.getOrDefault(val,0)+1);
+        HashSet<Integer> set =new HashSet<>();
+        for(int val : nums) set.add(val);
 
         while(curr!=null)
         {
-            while(curr!=null && map.containsKey(curr.val)==true)
+            while(curr!=null && set.contains(curr.val)==true)
             {
                 curr = curr.next;
             }
