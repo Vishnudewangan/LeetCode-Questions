@@ -5,29 +5,25 @@ class Solution {
 
         for(int val: nums) maxOR = (maxOR | val);
 
-        int[] ans= new int[1];
-        findSubsetWithOR(nums,0,0,maxOR,ans);
-        
-        return ans[0];
+        return findSubsetWithOR(nums,0,0,maxOR);
     }
 
-    void findSubsetWithOR(int[] nums,int idx, int currOR, int maxOR, int[] ans)
+    int findSubsetWithOR(int[] nums,int idx, int currOR, int maxOR)
     {
 
         if(idx == nums.length){
-            if(currOR == maxOR)
-            {
-                ans[0]++;
-            }
-            return;
+            if(currOR == maxOR)return 1;
+            else return 0;
         }
           
         
         // take
-        findSubsetWithOR(nums,idx+1,currOR|nums[idx],maxOR,ans);
+        int takeAns= findSubsetWithOR(nums,idx+1,currOR|nums[idx],maxOR);
 
         // don't take
-        findSubsetWithOR(nums,idx+1,currOR,maxOR,ans);
+        int ntakeAns = findSubsetWithOR(nums,idx+1,currOR,maxOR);
+
+        return takeAns + ntakeAns;
   
     }
 }
