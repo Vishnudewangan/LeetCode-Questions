@@ -11,10 +11,8 @@ class Solution {
         if(idx==-1) return sb;
 
         sb.delete(idx,idx+part.length());
-        System.out.println(sb);
-
-        StringBuilder ans = solve(sb,part);
-        return ans;
+        solve(sb,part);
+        return sb;
         
     }
 }
