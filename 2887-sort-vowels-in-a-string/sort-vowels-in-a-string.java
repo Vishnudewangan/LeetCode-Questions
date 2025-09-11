@@ -6,18 +6,14 @@ class Solution {
 
         for(char ch  : arr)
         {
-            if("aeiouAEIOU".indexOf(ch)!=-1) {
-                int val = (ch-'A');
-
-                list.add(val);
-            }
+            if("aeiouAEIOU".indexOf(ch)!=-1) list.add((int)ch);
         }
 
         Collections.sort(list);
          int idx=0;
         for(int i=0;i<arr.length && idx<list.size();i++){
             if("aeiouAEIOU".indexOf(arr[i])!=-1){
-                arr[i] = (char)((int)(list.get(idx++)+'A'));
+                arr[i] = (char)list.get(idx++).intValue();
             }
         }
 
