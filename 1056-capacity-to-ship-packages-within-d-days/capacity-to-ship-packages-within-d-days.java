@@ -33,18 +33,12 @@ class Solution {
              
              if(weight > mid) return 0;
 
-            if(weightSoFar + weight >= mid){
-
-                if(weightSoFar + weight == mid){
-                    weightSoFar = 0;
-                }
-                else{
-                    weightSoFar = weight;
-                }
-                daysRequired++;
+            if(weightSoFar + weight <= mid){
+                weightSoFar += weight;
             }
             else{
-                weightSoFar += weight;
+                daysRequired++;
+                weightSoFar = weight;
             }
         }
 
