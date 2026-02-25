@@ -10,6 +10,6 @@ class Solution {
             else right--;
         }
 
-        return new int[]{-1,-1};
+        return new int[]{};
     }
 }
