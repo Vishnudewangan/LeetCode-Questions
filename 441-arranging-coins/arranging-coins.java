@@ -22,7 +22,7 @@ class Solution {
     private int check(int row, int totalCoins){
         long coinsRequired = ((long)row * ((long)row + 1))/2;
 
-        System.out.println("row : "+ row + " coinsRequired : " + coinsRequired);
+       // System.out.println("row : "+ row + " coinsRequired : " + coinsRequired);
 
         return coinsRequired <= totalCoins ? 1 : 0 ;
     }
