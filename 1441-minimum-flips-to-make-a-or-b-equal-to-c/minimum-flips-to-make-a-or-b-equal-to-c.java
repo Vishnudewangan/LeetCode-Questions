@@ -15,7 +15,7 @@ class Solution {
             }
             else{
                if(bita == bitb && bita >= 1) cnt = cnt + 2;
-               else if((bita == 0 && bitb >= 1) || (bitb== 0 && bita >= 1)) cnt = cnt + 1;
+               else if(bita >= 1 || bitb >= 1) cnt = cnt + 1;
             }
         }
 
