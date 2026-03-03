@@ -6,7 +6,7 @@ class Solution {
 
         for(int i = 1; i <= n; i++)
         {
-            if( i%2 == 0){
+            if( (i & 1) == 0){
                bits[i] = bits[i/2];
             }
             else{
