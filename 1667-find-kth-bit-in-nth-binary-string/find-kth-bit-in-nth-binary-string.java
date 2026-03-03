@@ -1,21 +1,32 @@
 class Solution {
     public char findKthBit(int n, int k) {
-        // Base case: When n = 1, the binary string is "0"
-        if (n == 1) return '0';
+        StringBuilder prev = new StringBuilder("0");
         
-        // Find the length of the current string Sn, which is 2^n - 1
-        int length = (1 << n) - 1;
-        
-        // Find the middle position
-        int mid = length / 2 + 1;
-        
-        // If k is the middle position, return '1'
-        if (k == mid) return '1';
-        
-        // If k is in the first half, find the bit in Sn-1
-        if (k < mid) return findKthBit(n - 1, k);
-        
-        // If k is in the second half, find the bit in Sn-1 and invert it
-        return findKthBit(n - 1, length - k + 1) == '0' ? '1' : '0';
+
+        for(int i=2;i<=n;i++)
+        {
+            StringBuilder curr = new StringBuilder(prev);
+            curr.append("1"+invert(prev.reverse()));
+            prev = curr;
+        }
+
+        System.out.println(prev);
+         
+        return prev.charAt(k-1);
+    }
+
+    private String invert(StringBuilder sb){
+          
+          for(int i = 0; i < sb.length(); i++)
+          {
+            if(sb.charAt(i) == '1'){
+                sb.setCharAt(i, '0');
+            }
+            else{
+                sb.setCharAt(i, '1');
+            }
+          }
+
+          return sb.toString();
     }
 }
