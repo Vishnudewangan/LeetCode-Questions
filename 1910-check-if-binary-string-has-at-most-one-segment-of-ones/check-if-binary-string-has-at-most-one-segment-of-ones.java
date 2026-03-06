@@ -3,20 +3,20 @@ class Solution {
         if(s.length() == 1) return true;
 
         int cSegments = 0;
-        int cnt = 1;
+        boolean segment = true;
         for(int i = 1; i < s.length(); i++){
             if(s.charAt(i-1) == s.charAt(i) && s.charAt(i) == '1'){
                  continue;
             }
             else if(s.charAt(i) == '1'){
-                cnt = 1;
+                segment = true;
             }
             else{
-                if(cnt > 0) cSegments++;
+                if(segment) cSegments++;
                 if(cSegments > 1) return false;
-                cnt = 0;
+                segment = false;
             }
         }
-        return (cnt==0 && cSegments <= 1) || (cnt == 1 && cSegments == 0);
+        return (segment == false && cSegments <= 1) || (segment == true && cSegments == 0);
     }
 }
