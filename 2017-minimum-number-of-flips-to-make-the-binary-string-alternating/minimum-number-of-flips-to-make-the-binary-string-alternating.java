@@ -2,21 +2,8 @@ class Solution {
     public int minFlips(String s) {
         int n = s.length();
         StringBuilder sb = new StringBuilder(s);
-       
         sb.append(s);
 
-        StringBuilder startWithOne = new StringBuilder("");
-        StringBuilder startWithZero = new StringBuilder("");
-
-        for(int i = 0 ; i < 2 * n; i++)
-        {
-            char ch1 = i%2 == 0 ? '1' : '0';
-            char ch0 = i%2 == 0 ? '0' : '1';
-
-            startWithOne.append(ch1);
-            startWithZero.append(ch0);
-        }
-        
         int flip1 = 0;
         int flip0 = 0;
 
@@ -26,15 +13,21 @@ class Solution {
 
         while(j < 2 * n){
             
-            if(sb.charAt(j)!=startWithOne.charAt(j)) flip1++;
-            if(sb.charAt(j) != startWithZero.charAt(j)) flip0++;
+            char ch1 = j % 2 == 0 ? '1' : '0';
+            char ch0 = j % 2 == 0 ? '0' : '1';
 
+            if(sb.charAt(j) != ch1) flip1++;
+            if(sb.charAt(j) != ch0) flip0++;
 
             if(j - i + 1 > n){
-                if(sb.charAt(i) != startWithOne.charAt(i)) flip1--;
-                if(sb.charAt(i) != startWithZero.charAt(i)) flip0--;
+               
+               char oldCh1 = i % 2 == 0 ? '1' : '0';
+               char oldCh0 = i % 2 == 0 ? '0' : '1';
 
-                i++;
+               if(sb.charAt(i) != oldCh1) flip1--;
+               if(sb.charAt(i) != oldCh0) flip0--;
+
+               i++;
             }
 
             if(j - i + 1 == n) {
