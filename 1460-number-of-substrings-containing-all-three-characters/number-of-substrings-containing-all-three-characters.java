@@ -1,37 +1,57 @@
 class Solution {
-
     public int numberOfSubstrings(String s) {
-        int len = s.length();
-        int left = 0, right = 0;
-        // Track frequency of a, b, c
-        int[] freq = new int[3];
-        int total = 0;
+    
 
-        while (right < len) {
-            // Add character at right pointer to frequency array
-            char curr = s.charAt(right);
-            freq[curr - 'a']++;
+      return atleastOneABC(s);
+    }
+    private int atleastOneABC(String s)
+    {
+          
+      int n = s.length();
+      // ds
+      int[] freq =new int[3];
+      
+      // tp
+      int tail = 0, head = -1;
+      int ans = 0;
 
-            // While we have all required characters
-            while (hasAllChars(freq)) {
-                // All substrings from current window to end are valid
-                // Add count of these substrings to result
-                total += len - right;
-
-                // Remove leftmost character and move left pointer
-                char leftChar = s.charAt(left);
-                freq[leftChar - 'a']--;
-                left++;
-            }
-
-            right++;
+      while(tail < n){
+        
+        while(head + 1 < n && check(s.charAt(head+1),freq)){
+            head++;
+            freq[s.charAt(head)-'a']++;
         }
 
-        return total;
+        // ans
+
+        ans += n-1 - (head + 1) + 1; // no of substring having atleadt 1 abc starting at tail
+
+        if(tail <= head){
+            freq[s.charAt(tail) - 'a']--;
+
+            tail++;
+        }
+        else{
+            tail++;
+            head = tail - 1;
+        }
+      }
+
+      return ans;
     }
 
-    private boolean hasAllChars(int[] freq) {
-        // Check if we have at least one of each character
-        return freq[0] > 0 && freq[1] > 0 && freq[2] > 0;
+    private boolean check(char ch, int[] freq)
+    {
+        int sumOfABC = 0;
+
+        freq[ch -'a']++;
+
+        if(freq[0]>0) sumOfABC++;
+        if(freq[1]>0) sumOfABC++;
+        if(freq[2]>0) sumOfABC++;
+
+        freq[ch -'a']--;
+
+        return sumOfABC < 3;
     }
 }
