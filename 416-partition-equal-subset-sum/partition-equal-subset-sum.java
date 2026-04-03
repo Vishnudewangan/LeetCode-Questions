@@ -1,51 +1,37 @@
 class Solution {
-     int[][] dp;
     public boolean canPartition(int[] nums) {
-       
-        int sum=0;
-        
-        for(int val: nums)
+        int sum = Arrays.stream(nums).sum();
+
+        if(sum%2 == 1) return false;
+
+        int [][] dp = new int[nums.length + 100][100100];
+
+        for(int[] arr : dp) Arrays.fill(arr, -1);
+
+        return rec(0,sum/2,nums,dp) == 1 ? true : false;
+    }
+
+    static int rec(int level, int sum_left,int[] nums,int[][] dp){
+        // pruning
+
+        // base case
+        if(level == nums.length)
         {
-            sum+=val;
+            if(sum_left == 0) return 1;
+            else return 0;
         }
+        // cache check
+
+        if(dp[level][sum_left] != -1) return dp[level][sum_left];
+        // compute/transition
         
+        int ans = rec(level+1, sum_left,nums,dp);
         
-        if((sum&1)==1) return false;
-        
-        dp=new int[nums.length][sum/2+1];
-         for(int[] a :dp)
-         {
-            Arrays.fill(a,-1);
-         }
-        
-        return  isSubsetSum(nums,nums.length-1,sum/2);
-     }
-    
-    boolean isSubsetSum(int[] nums,int idx,int sum)
-    {
-        if(idx<0) return false;
-        
-        if(idx>=0 && nums[idx]==sum) return true;
-        
-        if(dp[idx][sum]!=-1) return dp[idx][sum]==0? false: true;
-        
-        
-        if(nums[idx]<=sum)
-        {
-            boolean f1=isSubsetSum(nums,idx-1,sum-nums[idx]);
-            boolean f2=isSubsetSum(nums,idx-1,sum);
-            
-            dp[idx][sum]=f1|| f2 == false? 0 : 1;
-            
-            return  f1 || f2;
-            
-        }
-        else
-        {
-            boolean f=isSubsetSum(nums,idx-1,sum);
-             dp[idx][sum]= f==false ? 0 : 1;
-            return f;
-        }
-        
+        if(nums[level] <= sum_left) ans  =ans |rec(level+1 , sum_left - nums[level], nums,dp);
+
+
+        // save and return
+
+        return dp[level][sum_left] = ans;
     }
 }
